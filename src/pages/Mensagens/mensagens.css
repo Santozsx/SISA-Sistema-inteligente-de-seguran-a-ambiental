@@ -1,0 +1,227 @@
+.mensagens-page {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ---------- lista de conversas ---------- */
+.mensagens-lista-conversas {
+  width: 190px;
+  flex-shrink: 0;
+  background: #0a0d12;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 20px 14px;
+  overflow-y: auto;
+}
+
+.mensagens-lista-titulo {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #5b6472;
+  padding: 0 8px 12px;
+}
+
+.mensagens-conversas {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mensagens-conversa-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  color: #dbe4ea;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.mensagens-conversa-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.mensagens-conversa-item--ativa {
+  background: #1b2333;
+  color: #ffffff;
+}
+
+.mensagens-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.mensagens-conversa-nome {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- painel de chat ---------- */
+.mensagens-chat {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.mensagens-chat-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.mensagens-chat-nome {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.mensagens-chat-sub {
+  font-size: 11.5px;
+  color: #8a93a6;
+  margin-top: 2px;
+}
+
+.mensagens-chat-topo-direita {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mensagens-canal-seguro {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: #4c8eff;
+  border: 1px solid rgba(76, 142, 255, 0.4);
+  border-radius: 100px;
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+
+.mensagens-icone-botao {
+  background: none;
+  border: none;
+  color: #8a93a6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* ---------- corpo de mensagens ---------- */
+.mensagens-corpo {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: auto;
+}
+
+.mensagens-msg {
+  max-width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mensagens-msg--instituto {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.mensagens-msg--posto {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.mensagens-msg-bolha {
+  background: #121722;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  padding: 10px 13px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #f2f4f7;
+}
+
+.mensagens-msg--posto .mensagens-msg-bolha {
+  background: rgba(76, 142, 255, 0.14);
+  border-color: rgba(76, 142, 255, 0.3);
+}
+
+.mensagens-msg-meta {
+  font-size: 10.5px;
+  color: #5b6472;
+  padding: 0 4px;
+}
+
+.mensagens-msg--posto .mensagens-msg-meta {
+  color: #4c8eff;
+}
+
+/* ---------- rodapé de envio ---------- */
+.mensagens-rodape {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.mensagens-input {
+  flex: 1;
+  background: #121722;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #f2f4f7;
+  font-size: 13.5px;
+  font-family: inherit;
+  outline: none;
+}
+
+.mensagens-input:focus {
+  border-color: #4c8eff;
+}
+
+.mensagens-input::placeholder {
+  color: #5b6472;
+}
+
+.mensagens-botao-enviar {
+  background: none;
+  border: 1px solid #f2f4f7;
+  color: #f2f4f7;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.mensagens-botao-enviar:hover {
+  background: rgba(255, 255, 255, 0.06);
+}

@@ -1,56 +1,100 @@
-import "./home.css"
+import { MoreHorizontal, Image as ImageIcon, ArrowUpRight } from "lucide-react";
+import "./home.css";
+
+type StatusInstituto = "ativo" | "em-rota";
+
+interface Instituto {
+  id: string;
+  nome: string;
+  distancia: string;
+  status: StatusInstituto;
+  statusLabel: string;
+}
+
+type TagNoticia = "urgente" | "resolvido";
+
+interface Noticia {
+  id: string;
+  tag: TagNoticia;
+  titulo: string;
+  fonte: string;
+  tempo: string;
+}
+
+const INSTITUTOS: Instituto[] = [
+  { id: "biomas", nome: "Instituto Biomas", distancia: "4.2 km", status: "ativo", statusLabel: "ativo" },
+  { id: "guarda", nome: "Guarda Ambiental", distancia: "11 km", status: "ativo", statusLabel: "ativo" },
+  { id: "fiscalizacao", nome: "Fiscalização Amaz.", distancia: "23 km", status: "em-rota", statusLabel: "em rota" },
+];
+
+const NOTICIAS: Noticia[] = [
+  {
+    id: "garimpo-para",
+    tag: "urgente",
+    titulo: "Garimpo identificado no Pará",
+    fonte: "Instituto Biomas",
+    tempo: "há 2h",
+  },
+  {
+    id: "animais-resgatados",
+    tag: "resolvido",
+    titulo: "Animais resgatados em operação",
+    fonte: "Guarda Ambiental",
+    tempo: "1 dia",
+  },
+];
+
 export default function Home() {
-    return (
-
-        
-        <div className="background-wrapper">
-
-            <div className="glow-light glow-top-left"></div>
-
-            <div className="glow-light glow-bottom-right"></div>
-
-            {/* header da pagina */}
-            <header className="header">
-                <span className="span-dot"></span>
-                <h1 className="header-h1">SISA <span className="header-span">Sistema inteligente de segurança ambiental</span></h1>
-            </header>
-
-            {/* container principal */}
-            <div className="container">
-                {/* Container lado esquerdo */}
-                <div className="container-left">
-
-                    <div className="title-left-side">
-                        <p className="title-left-side-p">ACESSO RESTRITO</p>
-                        <h1 className="left-side-h1">Acesso exclusivo. <br/>Somente institutos<br/> verificados.</h1>
-                    </div>
-
-
-                </div>
-
-                {/* container lado direito */}
-                <div className="container-right">
-                    <div className="title-right-side">
-                        <h1 className="rihgt-side-h1">Entrar</h1>
-
-                        <p className="rihgt-side-p">Acesse com as credenciais do seu instituto</p>
-
-                        <p className="right-input-p">E-mail institucional:</p>
-
-                        <input className="input-email-password" type="" placeholder="contato@institutoxyz.org" />
-
-                        <p className="right-input-p">Senha:</p>
-
-                        <input className="input-email-password" type="" placeholder="******" />
-
-                        <button className="button-login">Entrar</button>
-
-                        <p className="rihgt-side-bottom-p">Ainda não possui uma conta? <span className="destaque">Cadastrar agora</span></p>
-
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className="home-conteudo">
+      <section className="home-secao">
+        <div className="home-secao-cabecalho">
+          <h2 className="home-secao-titulo">INSTITUTOS PRÓXIMOS</h2>
+          <button className="home-icone-botao">
+            <MoreHorizontal size={16} />
+          </button>
         </div>
-    );
 
+        <div className="home-institutos-grade">
+          {INSTITUTOS.map((instituto) => (
+            <div key={instituto.id} className="home-instituto-card">
+              <div className={`home-status home-status--${instituto.status}`}>
+                <span className="home-status-quadrado" />
+                {instituto.statusLabel}
+              </div>
+              <div className="home-instituto-nome">{instituto.nome}</div>
+              <div className="home-instituto-distancia">{instituto.distancia}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="home-secao">
+        <div className="home-secao-cabecalho">
+          <h2 className="home-secao-titulo">MURAL DE NOTÍCIAS</h2>
+          <a className="home-chat-rapido" href="#">
+            chat rápido
+            <ArrowUpRight size={14} />
+          </a>
+        </div>
+
+        <div className="home-noticias-grade">
+          {NOTICIAS.map((noticia) => (
+            <article key={noticia.id} className="home-noticia-card">
+              <div className="home-noticia-imagem">
+                <ImageIcon size={22} />
+              </div>
+              <div className="home-noticia-corpo">
+                <span className={`home-tag home-tag--${noticia.tag}`}>{noticia.tag}</span>
+                <div className="home-noticia-titulo">{noticia.titulo}</div>
+                <div className="home-noticia-meta">
+                  {noticia.fonte} · {noticia.tempo}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
 }

@@ -1,0 +1,141 @@
+.institutos-conteudo {
+  padding: 24px 28px 40px;
+}
+
+.institutos-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.institutos-titulo {
+  font-size: 15.5px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.institutos-subtitulo {
+  font-size: 12px;
+  color: #8a93a6;
+}
+
+/* ---------- mapa ---------- */
+.institutos-mapa {
+  position: relative;
+  height: 118px;
+  background: #10151c;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.institutos-mapa-ponto {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.institutos-mapa-icone {
+  position: absolute;
+  top: 50%;
+  right: 34%;
+  transform: translate(50%, -50%);
+  color: #4a5568;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- lista de institutos ---------- */
+.institutos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.institutos-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #121722;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.institutos-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11.5px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.institutos-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.institutos-nome {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.institutos-detalhe {
+  font-size: 12px;
+  color: #8a93a6;
+  margin-top: 2px;
+}
+
+.institutos-acoes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.institutos-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 500;
+}
+
+.institutos-status-quadrado {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.institutos-status--ativo {
+  color: #34d399;
+}
+.institutos-status--ativo .institutos-status-quadrado {
+  background: #34d399;
+}
+
+.institutos-status--em-rota {
+  color: #f5a524;
+}
+.institutos-status--em-rota .institutos-status-quadrado {
+  background: #f5a524;
+}
+
+.institutos-conversar {
+  font-size: 11.5px;
+  color: #4c8eff;
+  text-decoration: none;
+  font-weight: 500;
+}
