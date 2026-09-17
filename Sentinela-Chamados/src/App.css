@@ -1,0 +1,491 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #080b14;
+  color: #f2f4f8;
+}
+
+button {
+  font-family: inherit;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  background: #080b14;
+}
+
+
+/* ========================================
+   SIDEBAR
+======================================== */
+
+.sidebar {
+  width: 390px;
+  min-height: 100vh;
+
+  background: #0b0e18;
+
+  border-right: 1px solid #242a39;
+
+  padding: 42px 28px 32px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ========================================
+   LOGO
+======================================== */
+
+.logo {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  font-size: 27px;
+  font-weight: 700;
+
+  margin-bottom: 55px;
+}
+
+.logo-icon {
+  width: 34px;
+  height: 34px;
+
+  border: 3px solid #3185ff;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #3185ff;
+
+  font-size: 18px;
+}
+
+
+/* ========================================
+   MENU
+======================================== */
+
+.menu {
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+.menu a,
+.config a {
+  height: 70px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+
+  padding: 0 25px;
+
+  border-radius: 12px;
+
+  color: #a5adbf;
+
+  text-decoration: none;
+
+  font-size: 20px;
+  font-weight: 500;
+
+  transition: 0.2s;
+}
+
+
+/* Hover */
+
+.menu a:hover,
+.config a:hover {
+  background: #151a29;
+  color: white;
+}
+
+
+/* Item ativo */
+
+.menu a.active {
+  background: #19233d;
+
+  color: #ffffff;
+}
+
+
+/* Ícones */
+
+.menu-icon {
+  width: 27px;
+
+  display: flex;
+  justify-content: center;
+
+  font-size: 23px;
+
+  color: #a8b2c7;
+}
+
+.active .menu-icon {
+  color: #79a8ff;
+}
+
+
+/* ========================================
+   CONFIG
+======================================== */
+
+.config {
+  margin-top: auto;
+}
+
+
+/* ========================================
+   CONTEÚDO
+======================================== */
+
+.content {
+  flex: 1;
+
+  padding: 48px 48px 60px;
+
+  min-width: 0;
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+.header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 35px;
+}
+
+.header h1 {
+  font-size: 32px;
+
+  font-weight: 700;
+}
+
+
+/* ========================================
+   BOTÃO NOVO CHAMADO
+======================================== */
+
+.new-button {
+  background: linear-gradient(135deg, #6e9df5, #527fc9);
+
+  color: #ffffff;
+
+  border: 1px solid #3185ff;
+
+  border-radius: 13px;
+
+  padding: 17px 28px;
+
+  font-size: 20px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: 0 8px 24px rgba(110, 157, 245, 0.3);
+
+  transition: 0.2s;
+}
+
+.new-button:hover {
+  opacity: 0.9;
+
+  box-shadow: 0 8px 28px rgba(110, 157, 245, 0.45);
+}
+
+
+/* ========================================
+   FILTROS
+======================================== */
+
+.filters {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  margin-bottom: 30px;
+}
+
+.filter {
+  background: transparent;
+
+  border: none;
+
+  color: #777f91;
+
+  font-size: 19px;
+
+  padding: 13px 22px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.filter:hover {
+  color: #ffffff;
+}
+
+
+/* Filtro selecionado */
+
+.active-filter {
+  background: #17243f;
+
+  color: #ffffff;
+}
+
+
+/* ========================================
+   TABELA
+======================================== */
+
+.table-container {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  min-width: 850px;
+}
+
+
+/* Cabeçalho */
+
+thead {
+  border-bottom: 1px solid #252c3c;
+}
+
+th {
+  text-align: left;
+
+  color: #687185;
+
+  font-size: 18px;
+
+  font-weight: 500;
+
+  padding: 0 10px 22px;
+}
+
+
+/* Linhas */
+
+td {
+  padding: 23px 10px;
+
+  border-bottom: 1px solid #202636;
+
+  color: #9da5b6;
+
+  font-size: 18px;
+}
+
+
+/* Número */
+
+td.id {
+  color: #6e9df5;
+
+  font-weight: 700;
+}
+
+
+/* Categoria */
+
+td.categoria {
+  color: #f0f2f6;
+
+  font-weight: 600;
+}
+
+
+/* Data */
+
+td.data {
+  color: #8992a4;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.status {
+  display: inline-block;
+
+  padding: 8px 14px;
+
+  border-radius: 6px;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  text-transform: lowercase;
+}
+
+
+/* Aberto */
+
+.status.aberto {
+  background: #492319;
+
+  color: #ff714e;
+}
+
+
+/* Em análise */
+
+.status.em-análise {
+  background: #493d0a;
+
+  color: #f0c832;
+}
+
+
+/* Resolvido */
+
+.status.resolvido {
+  background: #0b3d2d;
+
+  color: #3ed39b;
+}
+
+
+/* ========================================
+   NENHUM RESULTADO
+======================================== */
+
+.empty {
+  padding: 50px 20px;
+
+  text-align: center;
+
+  color: #687185;
+
+  font-size: 18px;
+}
+
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 1000px) {
+
+  .sidebar {
+    width: 260px;
+  }
+
+  .content {
+    padding: 35px 30px;
+  }
+
+  .header h1 {
+    font-size: 27px;
+  }
+
+  .new-button {
+    font-size: 16px;
+
+    padding: 14px 20px;
+  }
+
+}
+
+/* ========================================
+   CELULAR
+======================================== */
+
+@media (max-width: 700px) {
+
+  .app {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+
+    min-height: auto;
+
+    padding: 20px;
+
+    border-right: none;
+
+    border-bottom: 1px solid #242a39;
+  }
+
+  .logo {
+    margin-bottom: 20px;
+  }
+
+  .menu {
+    flex-direction: row;
+
+    overflow-x: auto;
+  }
+
+  .menu a {
+    height: 50px;
+
+    padding: 0 15px;
+
+    font-size: 15px;
+  }
+
+  .config {
+    display: none;
+  }
+
+  .content {
+    padding: 25px 20px;
+  }
+
+  .header {
+    align-items: flex-start;
+
+    gap: 20px;
+  }
+
+  .header h1 {
+    font-size: 23px;
+  }
+
+}
