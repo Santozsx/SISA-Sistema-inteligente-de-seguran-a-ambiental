@@ -11,7 +11,7 @@ function App() {
         <span className="logo-ponto"></span>
 
         <span className="logo">
-          Sentinela
+          SISA
         </span>
 
         <span className="logo-descricao">
