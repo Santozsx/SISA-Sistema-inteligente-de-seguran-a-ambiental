@@ -1,5 +1,7 @@
+import { useNavigate, Link } from "react-router-dom";
 import "./login.css"
 export default function Login() {
+      const navigate = useNavigate();
     return (
 
         
@@ -43,9 +45,9 @@ export default function Login() {
 
                         <input className="input-email-password" type="" placeholder="******" />
 
-                        <button className="button-login">Entrar</button>
+                        <button className="button-login" onClick={() => navigate("/home")}>Entrar</button>
 
-                        <p className="rihgt-side-bottom-p">Ainda não possui uma conta? <span className="destaque">Cadastrar agora</span></p>
+                       <p className="rihgt-side-bottom-p">Ainda não possui uma conta? <Link className="destaque" to="/cadastro">Cadastrar agora</Link></p>
 
                     </div>
                 </div>

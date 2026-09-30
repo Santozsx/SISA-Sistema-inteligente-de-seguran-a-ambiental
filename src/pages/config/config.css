@@ -1,0 +1,287 @@
+/* ========================================
+   CONTEÚDO
+======================================== */
+
+.config-conteudo {
+  flex: 1;
+
+  min-width: 0;
+
+  max-width: 720px;
+
+  padding: 28px 28px 40px;
+
+  color: #f2f4f8;
+}
+
+.config-conteudo button,
+.config-conteudo input {
+  font-family: inherit;
+}
+
+
+/* ========================================
+   CABEÇALHO
+======================================== */
+
+.config-cabecalho {
+  margin-bottom: 22px;
+}
+
+.config-titulo {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+
+/* ========================================
+   SEÇÕES (CARDS)
+======================================== */
+
+.config-secao {
+  background: #0f131f;
+
+  border: 1px solid #1f2535;
+
+  border-radius: 12px;
+
+  padding: 20px;
+
+  margin-bottom: 16px;
+}
+
+.config-secao-titulo {
+  color: #8992a4;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+
+  margin-bottom: 16px;
+}
+
+
+/* ========================================
+   CAMPOS
+======================================== */
+
+.config-campo {
+  margin-bottom: 14px;
+}
+
+.config-campo:last-child {
+  margin-bottom: 0;
+}
+
+.config-campo label {
+  display: block;
+
+  color: #9da5b6;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  margin-bottom: 6px;
+}
+
+.config-campo input {
+  width: 100%;
+
+  background: #080b14;
+
+  border: 1px solid #252c3c;
+
+  border-radius: 10px;
+
+  padding: 11px 14px;
+
+  color: #f2f4f8;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition: 0.2s;
+}
+
+.config-campo input::placeholder {
+  color: #687185;
+}
+
+.config-campo input:focus {
+  border-color: #3185ff;
+
+  box-shadow: 0 0 0 3px rgba(49, 133, 255, 0.2);
+}
+
+
+/* ========================================
+   LINHAS DE NOTIFICAÇÃO
+======================================== */
+
+.config-linha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+
+  padding: 12px 0;
+
+  border-bottom: 1px solid #1a2030;
+}
+
+.config-linha:last-child {
+  border-bottom: none;
+
+  padding-bottom: 0;
+}
+
+.config-linha-titulo {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.config-linha-detalhe {
+  color: #8992a4;
+
+  font-size: 12px;
+
+  margin-top: 3px;
+}
+
+
+/* ========================================
+   SWITCH (LIGA / DESLIGA)
+======================================== */
+
+.config-switch {
+  position: relative;
+
+  flex-shrink: 0;
+
+  width: 42px;
+  height: 24px;
+
+  background: #252c3c;
+
+  border: none;
+
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.config-switch-bolinha {
+  position: absolute;
+
+  top: 3px;
+  left: 3px;
+
+  width: 18px;
+  height: 18px;
+
+  background: #ffffff;
+
+  border-radius: 50%;
+
+  transition: 0.2s;
+}
+
+.config-switch--ligado {
+  background: #3185ff;
+}
+
+.config-switch--ligado .config-switch-bolinha {
+  left: 21px;
+}
+
+
+/* ========================================
+   AÇÕES
+======================================== */
+
+.config-acoes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-top: 22px;
+}
+
+.config-botao-salvar {
+  background: linear-gradient(135deg, #6e9df5, #527fc9);
+
+  color: #ffffff;
+
+  border: 1px solid #3185ff;
+
+  border-radius: 10px;
+
+  padding: 10px 18px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 16px rgba(110, 157, 245, 0.25);
+
+  transition: 0.2s;
+}
+
+.config-botao-salvar:hover {
+  opacity: 0.9;
+}
+
+.config-botao-sair {
+  background: transparent;
+
+  color: #ff714e;
+
+  border: 1px solid #492319;
+
+  border-radius: 10px;
+
+  padding: 10px 18px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.config-botao-sair:hover {
+  background: #492319;
+}
+
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 700px) {
+
+  .config-conteudo {
+    padding: 20px 16px 32px;
+  }
+
+  .config-secao {
+    padding: 16px;
+  }
+
+  .config-acoes {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+}

@@ -1,0 +1,243 @@
+/* ========================================
+   CONTEÚDO
+======================================== */
+
+.chamados-conteudo {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 28px 28px 40px;
+
+  color: #f2f4f8;
+}
+
+.chamados-conteudo button {
+  font-family: inherit;
+}
+
+
+/* ========================================
+   CABEÇALHO
+======================================== */
+
+.chamados-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 22px;
+}
+
+.chamados-titulo {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.chamados-botao-novo {
+  background: linear-gradient(135deg, #6e9df5, #527fc9);
+
+  color: #ffffff;
+
+  border: 1px solid #3185ff;
+
+  border-radius: 10px;
+
+  padding: 10px 18px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 16px rgba(110, 157, 245, 0.25);
+
+  transition: 0.2s;
+}
+
+.chamados-botao-novo:hover {
+  opacity: 0.9;
+
+  box-shadow: 0 4px 20px rgba(110, 157, 245, 0.4);
+}
+
+
+/* ========================================
+   FILTROS
+======================================== */
+
+.chamados-filtros {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 20px;
+}
+
+.chamados-filtro {
+  background: transparent;
+
+  border: none;
+
+  color: #777f91;
+
+  font-size: 14px;
+
+  padding: 8px 14px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.chamados-filtro:hover {
+  color: #ffffff;
+}
+
+.chamados-filtro--ativo {
+  background: #17243f;
+
+  color: #ffffff;
+}
+
+
+/* ========================================
+   TABELA
+======================================== */
+
+.chamados-tabela-container {
+  width: 100%;
+
+  overflow-x: auto;
+}
+
+.chamados-tabela {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  min-width: 600px;
+}
+
+.chamados-tabela thead {
+  border-bottom: 1px solid #252c3c;
+}
+
+.chamados-tabela th {
+  text-align: left;
+
+  color: #687185;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  padding: 0 10px 14px;
+}
+
+.chamados-tabela td {
+  padding: 14px 10px;
+
+  border-bottom: 1px solid #202636;
+
+  color: #9da5b6;
+
+  font-size: 14px;
+}
+
+.chamados-tabela .chamados-id {
+  color: #6e9df5;
+
+  font-weight: 700;
+}
+
+.chamados-tabela .chamados-categoria {
+  color: #f0f2f6;
+
+  font-weight: 600;
+}
+
+.chamados-tabela .chamados-data {
+  color: #8992a4;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.chamados-status {
+  display: inline-block;
+
+  padding: 4px 10px;
+
+  border-radius: 5px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  text-transform: lowercase;
+}
+
+.chamados-status--aberto {
+  background: #492319;
+
+  color: #ff714e;
+}
+
+.chamados-status--em-analise {
+  background: #493d0a;
+
+  color: #f0c832;
+}
+
+.chamados-status--resolvido {
+  background: #0b3d2d;
+
+  color: #3ed39b;
+}
+
+
+/* ========================================
+   NENHUM RESULTADO
+======================================== */
+
+.chamados-vazio {
+  padding: 40px 20px;
+
+  text-align: center;
+
+  color: #687185;
+
+  font-size: 14px;
+}
+
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 700px) {
+
+  .chamados-conteudo {
+    padding: 20px 16px;
+  }
+
+  .chamados-cabecalho {
+    align-items: flex-start;
+    flex-direction: column;
+
+    gap: 14px;
+  }
+
+  .chamados-filtros {
+    overflow-x: auto;
+  }
+
+  .chamados-filtro {
+    white-space: nowrap;
+  }
+
+}
