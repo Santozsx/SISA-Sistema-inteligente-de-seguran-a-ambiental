@@ -1,69 +1,53 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { MoreHorizontal, Image as ImageIcon, ArrowUpRight } from "lucide-react";
+import { listarInstitutos, listarMural, type Instituto, type Noticia } from "../../services/api";
+import { distancia, tempoRelativo } from "../../utils/formatar";
 import "./home.css";
 
-type StatusInstituto = "ativo" | "em-rota";
-
-interface Instituto {
-  id: string;
-  nome: string;
-  distancia: string;
-  status: StatusInstituto;
-  statusLabel: string;
-}
-
-type TagNoticia = "urgente" | "resolvido";
-
-interface Noticia {
-  id: string;
-  tag: TagNoticia;
-  titulo: string;
-  fonte: string;
-  tempo: string;
-}
-
-const INSTITUTOS: Instituto[] = [
-  { id: "biomas", nome: "Instituto Biomas", distancia: "4.2 km", status: "ativo", statusLabel: "ativo" },
-  { id: "guarda", nome: "Guarda Ambiental", distancia: "11 km", status: "ativo", statusLabel: "ativo" },
-  { id: "fiscalizacao", nome: "Fiscalização Amaz.", distancia: "23 km", status: "em-rota", statusLabel: "em rota" },
-];
-
-const NOTICIAS: Noticia[] = [
-  {
-    id: "garimpo-para",
-    tag: "urgente",
-    titulo: "Garimpo identificado no Pará",
-    fonte: "Instituto Biomas",
-    tempo: "há 2h",
-  },
-  {
-    id: "animais-resgatados",
-    tag: "resolvido",
-    titulo: "Animais resgatados em operação",
-    fonte: "Guarda Ambiental",
-    tempo: "1 dia",
-  },
-];
+const TAG_LABEL: Record<Noticia["tag"], string> = {
+  urgente: "urgente",
+  "em-analise": "em análise",
+  resolvido: "resolvido",
+};
 
 export default function Home() {
+  const [institutos, setInstitutos] = useState<Instituto[] | null>(null);
+  const [noticias, setNoticias] = useState<Noticia[] | null>(null);
+  const [erro, setErro] = useState("");
+
+  useEffect(() => {
+    Promise.all([listarInstitutos(), listarMural()])
+      .then(([listaInstitutos, listaNoticias]) => {
+        setInstitutos(listaInstitutos.slice(0, 3));
+        setNoticias(listaNoticias);
+      })
+      .catch((e: Error) => setErro(e.message));
+  }, []);
+
   return (
     <div className="home-conteudo">
+      {erro && <p className="aviso aviso--erro">{erro}</p>}
+
       <section className="home-secao">
         <div className="home-secao-cabecalho">
           <h2 className="home-secao-titulo">INSTITUTOS PRÓXIMOS</h2>
-          <button className="home-icone-botao">
+          <Link className="home-icone-botao" to="/institutos" aria-label="Ver todos os institutos">
             <MoreHorizontal size={16} />
-          </button>
+          </Link>
         </div>
 
         <div className="home-institutos-grade">
-          {INSTITUTOS.map((instituto) => (
+          {institutos === null && !erro && <p className="estado-vazio">Carregando...</p>}
+          {institutos?.length === 0 && <p className="estado-vazio">Nenhum outro instituto cadastrado.</p>}
+          {institutos?.map((instituto) => (
             <div key={instituto.id} className="home-instituto-card">
               <div className={`home-status home-status--${instituto.status}`}>
                 <span className="home-status-quadrado" />
-                {instituto.statusLabel}
+                {instituto.status_label}
               </div>
               <div className="home-instituto-nome">{instituto.nome}</div>
-              <div className="home-instituto-distancia">{instituto.distancia}</div>
+              <div className="home-instituto-distancia">{distancia(instituto.distancia_km)}</div>
             </div>
           ))}
         </div>
@@ -72,23 +56,25 @@ export default function Home() {
       <section className="home-secao">
         <div className="home-secao-cabecalho">
           <h2 className="home-secao-titulo">MURAL DE NOTÍCIAS</h2>
-          <a className="home-chat-rapido" href="#">
+          <Link className="home-chat-rapido" to="/mensagens">
             chat rápido
             <ArrowUpRight size={14} />
-          </a>
+          </Link>
         </div>
 
         <div className="home-noticias-grade">
-          {NOTICIAS.map((noticia) => (
+          {noticias === null && !erro && <p className="estado-vazio">Carregando...</p>}
+          {noticias?.length === 0 && <p className="estado-vazio">Nenhuma ocorrência registrada ainda.</p>}
+          {noticias?.map((noticia) => (
             <article key={noticia.id} className="home-noticia-card">
               <div className="home-noticia-imagem">
                 <ImageIcon size={22} />
               </div>
               <div className="home-noticia-corpo">
-                <span className={`home-tag home-tag--${noticia.tag}`}>{noticia.tag}</span>
+                <span className={`home-tag home-tag--${noticia.tag}`}>{TAG_LABEL[noticia.tag]}</span>
                 <div className="home-noticia-titulo">{noticia.titulo}</div>
                 <div className="home-noticia-meta">
-                  {noticia.fonte} · {noticia.tempo}
+                  {noticia.fonte} · {tempoRelativo(noticia.criado_em)}
                 </div>
               </div>
             </article>

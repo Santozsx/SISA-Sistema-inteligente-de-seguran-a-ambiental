@@ -225,3 +225,12 @@
 .mensagens-botao-enviar:hover {
   background: rgba(255, 255, 255, 0.06);
 }
+/* conteúdo como está guardado no banco (botão ⋯ do topo) */
+.mensagens-cifrado {
+  display: block;
+  margin-top: 6px;
+  max-width: 420px;
+  font-size: 10.5px;
+  color: #8b93a1;
+  word-break: break-all;
+}

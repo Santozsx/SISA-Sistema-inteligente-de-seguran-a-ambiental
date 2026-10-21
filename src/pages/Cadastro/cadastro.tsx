@@ -1,8 +1,41 @@
+import { useState, type FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { cadastrar } from "../../services/api";
 import './cadastro.css'
 
+const AREAS = [
+  "Fiscalização florestal",
+  "Preservação ambiental",
+  "Monitoramento ambiental",
+  "Pesquisa ambiental",
+];
+
 function App() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [tipo, setTipo] = useState(AREAS[0]);
+  const [senha, setSenha] = useState("");
+  const [erro, setErro] = useState("");
+  const [carregando, setCarregando] = useState(false);
+
+  async function criarConta(evento: FormEvent) {
+    evento.preventDefault();
+    setErro("");
+    setCarregando(true);
+    try {
+      await cadastrar({ nome: nome.trim(), email: email.trim(), tipo, senha });
+      navigate("/login", {
+        state: { email: email.trim(), mensagem: "Conta criada. Entre com seu e-mail e senha." },
+      });
+    } catch (e) {
+      setErro((e as Error).message);
+    } finally {
+      setCarregando(false);
+    }
+  }
+
   return (
     <div className="pagina">
 
@@ -47,7 +80,7 @@ function App() {
 
 
         {/* Card de cadastro */}
-        <section className="card">
+        <form className="card" onSubmit={criarConta}>
 
           <h2>
             Cadastrar instituto
@@ -57,17 +90,24 @@ function App() {
             Preencha os dados para liberar o acesso ao sistema.
           </p>
 
+          {erro && <p className="aviso aviso--erro">{erro}</p>}
+
 
           {/* Nome */}
           <div className="campo">
 
-            <label>
+            <label htmlFor="cadastro-nome">
               Nome do instituto
             </label>
 
             <input
+              id="cadastro-nome"
               type="text"
               placeholder="Instituto de Preservação Ambiental"
+              required
+              minLength={2}
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
             />
 
           </div>
@@ -76,13 +116,18 @@ function App() {
           {/* E-mail */}
           <div className="campo">
 
-            <label>
+            <label htmlFor="cadastro-email">
               E-mail institucional
             </label>
 
             <input
+              id="cadastro-email"
               type="email"
               placeholder="contato@instituto.org"
+              autoComplete="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
 
           </div>
@@ -91,28 +136,14 @@ function App() {
           {/* Área */}
           <div className="campo">
 
-            <label>
+            <label htmlFor="cadastro-area">
               Área de atuação
             </label>
 
-            <select>
-
-              <option>
-                Fiscalização florestal
-              </option>
-
-              <option>
-                Preservação ambiental
-              </option>
-
-              <option>
-                Monitoramento ambiental
-              </option>
-
-              <option>
-                Pesquisa ambiental
-              </option>
-
+            <select id="cadastro-area" value={tipo} onChange={(e) => setTipo(e.target.value)}>
+              {AREAS.map((area) => (
+                <option key={area}>{area}</option>
+              ))}
             </select>
 
           </div>
@@ -121,20 +152,26 @@ function App() {
           {/* Senha */}
           <div className="campo">
 
-            <label>
+            <label htmlFor="cadastro-senha">
               Senha
             </label>
 
             <input
+              id="cadastro-senha"
               type="password"
-              placeholder="Digite sua senha"
+              placeholder="Mínimo de 8 caracteres"
+              autoComplete="new-password"
+              required
+              minLength={8}
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
             />
 
           </div>
 
 
-          <button className="botao" onClick={() => navigate("/login")}>
-            Criar conta
+          <button className="botao" type="submit" disabled={carregando}>
+            {carregando ? "Criando conta..." : "Criar conta"}
           </button>
 
 
@@ -143,7 +180,7 @@ function App() {
             <Link className="destaque" to="/login">Entrar</Link>
           </p>
 
-        </section>
+        </form>
 
       </main>
 

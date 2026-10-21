@@ -1,0 +1,32 @@
+/* Avisos e estados usados em várias telas */
+
+.aviso {
+  margin: 0 0 14px;
+  padding: 10px 13px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.aviso--erro {
+  background: rgba(229, 72, 77, 0.12);
+  border: 1px solid rgba(229, 72, 77, 0.4);
+  color: #ff9592;
+}
+
+.aviso--sucesso {
+  background: rgba(46, 155, 99, 0.12);
+  border: 1px solid rgba(46, 155, 99, 0.4);
+  color: #7ee2a8;
+}
+
+.estado-vazio {
+  margin: 0;
+  font-size: 13px;
+  color: #8b93a1;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

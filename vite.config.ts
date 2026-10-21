@@ -8,4 +8,12 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] })
   ],
+  server: {
+    // Em desenvolvimento, fetch("/api/...") no front vai para o back end Python.
+    proxy: {
+      // 127.0.0.1 e não "localhost": o Node pode resolver localhost para IPv6 (::1),
+      // e o uvicorn escuta só em IPv4 por padrão.
+      '/api': 'http://127.0.0.1:8000',
+    },
+  },
 })

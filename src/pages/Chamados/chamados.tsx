@@ -1,59 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { listarChamados, type Chamado, type StatusChamado } from "../../services/api";
+import { tempoRelativo } from "../../utils/formatar";
 import "./chamdos.css";
 
-type StatusChamado = "aberto" | "em-analise" | "resolvido";
-
 type Filtro = "todos" | StatusChamado;
-
-interface ChamadoItem {
-  id: string;
-  categoria: string;
-  instituto: string;
-  status: StatusChamado;
-  statusLabel: string;
-  data: string;
-}
 
 interface FiltroItem {
   valor: Filtro;
   label: string;
 }
-
-const CHAMADOS: ChamadoItem[] = [
-  {
-    id: "4471",
-    categoria: "Derrubada de árvores",
-    instituto: "Instituto Biomas",
-    status: "aberto",
-    statusLabel: "aberto",
-    data: "há 2h",
-  },
-  {
-    id: "4468",
-    categoria: "Poluição hídrica",
-    instituto: "Fiscalização Amaz.",
-    status: "em-analise",
-    statusLabel: "em análise",
-    data: "3 dias",
-  },
-  {
-    id: "4390",
-    categoria: "Apreensão de animais",
-    instituto: "Guarda Ambiental",
-    status: "resolvido",
-    statusLabel: "resolvido",
-    data: "1 dia",
-  },
-  {
-    id: "4381",
-    categoria: "Garimpo clandestino",
-    instituto: "Instituto Biomas",
-    status: "resolvido",
-    statusLabel: "resolvido",
-    data: "5 dias",
-  },
-];
 
 const FILTROS: FiltroItem[] = [
   { valor: "todos", label: "Todos" },
@@ -62,19 +18,25 @@ const FILTROS: FiltroItem[] = [
   { valor: "resolvido", label: "Resolvidos" },
 ];
 
-
-   
-
 export default function Chamados() {
-  
   const [filtro, setFiltro] = useState<Filtro>("todos");
+  // Guarda a qual filtro a resposta pertence, para não mostrar a lista antiga ao trocar de filtro.
+  const [resultado, setResultado] = useState<{ filtro: Filtro; chamados: Chamado[]; erro: string } | null>(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    let ativo = true;
+    listarChamados(filtro === "todos" ? undefined : filtro)
+      .then((lista) => ativo && setResultado({ filtro, chamados: lista, erro: "" }))
+      .catch((e: Error) => ativo && setResultado({ filtro, chamados: [], erro: e.message }));
+    return () => {
+      ativo = false;
+    };
+  }, [filtro]);
 
-  const chamadosFiltrados =
-    filtro === "todos"
-      ? CHAMADOS
-      : CHAMADOS.filter((chamado) => chamado.status === filtro);
+  const atual = resultado?.filtro === filtro ? resultado : null;
+  const chamados = atual && !atual.erro ? atual.chamados : null;
+  const erro = atual?.erro ?? "";
 
   return (
     <div className="chamados-conteudo">
@@ -111,25 +73,27 @@ export default function Chamados() {
           </thead>
 
           <tbody>
-            {chamadosFiltrados.map((chamado) => (
-              <tr key={chamado.id}>
+            {chamados?.map((chamado) => (
+              <tr key={chamado.id} title={chamado.descricao}>
                 <td className="chamados-id">{chamado.id}</td>
-                <td className="chamados-categoria">{chamado.categoria}</td>
-                <td>{chamado.instituto}</td>
+                <td className="chamados-categoria">{chamado.categoria_label}</td>
+                <td>{chamado.instituto.nome}</td>
                 <td>
                   <span
                     className={`chamados-status chamados-status--${chamado.status}`}
                   >
-                    {chamado.statusLabel}
+                    {chamado.status_label}
                   </span>
                 </td>
-                <td className="chamados-data">{chamado.data}</td>
+                <td className="chamados-data">{tempoRelativo(chamado.criado_em)}</td>
               </tr>
             ))}
           </tbody>
         </table>
 
-        {chamadosFiltrados.length === 0 && (
+        {erro && <div className="chamados-vazio">{erro}</div>}
+        {chamados === null && !erro && <div className="chamados-vazio">Carregando...</div>}
+        {chamados?.length === 0 && (
           <div className="chamados-vazio">Nenhum chamado encontrado.</div>
         )}
       </div>
