@@ -241,3 +241,42 @@ class SincronizacaoSaida(BaseModel):
     servidor_agora: datetime
     chamados: list[ChamadoSaida]
     mensagens: list[MensagemSaida]
+
+
+# -------------------------------------------------------------------- cofre
+
+class DesbloquearCofreEntrada(BaseModel):
+    senha: str = Field(max_length=128)
+
+
+class DesbloqueioCofreSaida(BaseModel):
+    token_cofre: str
+    expira_em_segundos: int
+
+
+class ItemCofreSaida(BaseModel):
+    """O que dá para mostrar sem abrir o cofre: nada do conteúdo, só como ele está guardado."""
+
+    id: int
+    remetente: InstitutoResumo
+    destinatario: InstitutoResumo
+    enviado_por_mim: bool
+    tipo_mime: str
+    algoritmo: str
+    algoritmo_nome: str
+    tamanho_bytes: int
+    tamanho_cifrado: int
+    entropia_original: float
+    entropia_cifrado: float
+    hash_sha256: str
+    amostra_hex: str = Field(description="Primeiros bytes do arquivo cifrado, como está no disco")
+    visualizado: bool
+    criado_em: datetime
+
+
+class ConteudoCofreSaida(BaseModel):
+    id: int
+    nome_arquivo: str
+    legenda: str | None
+    tipo_mime: str
+    imagem_base64: str

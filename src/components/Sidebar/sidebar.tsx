@@ -6,6 +6,7 @@ import {
   MessageSquare,
   TriangleAlert,
   Settings,
+  Vault,
 } from "lucide-react";
 import "./sidebar.css";
 
@@ -13,6 +14,7 @@ const NAV_ITEMS = [
   { to: "/home", label: "Mural", icon: LayoutGrid },
   { to: "/institutos", label: "Institutos", icon: MapPin },
   { to: "/mensagens", label: "Mensagens", icon: MessageSquare },
+  { to: "/cofre", label: "Cofre", icon: Vault },
   { to: "/chamados", label: "Chamados", icon: TriangleAlert },
 ];
 

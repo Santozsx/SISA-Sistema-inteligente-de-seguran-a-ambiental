@@ -242,3 +242,71 @@ export const listarMensagens = (institutoId: number, mostrarCifrado = false) =>
 
 export const enviarMensagem = (institutoId: number, texto: string) =>
   requisitar<Mensagem>(`/mensagens/${institutoId}`, { method: "POST", body: json({ texto }) });
+
+// ------------------------------------------------------------------- cofre
+
+export interface ItemCofre {
+  id: number;
+  remetente: InstitutoResumo;
+  destinatario: InstitutoResumo;
+  enviado_por_mim: boolean;
+  tipo_mime: string;
+  algoritmo: string;
+  algoritmo_nome: string;
+  tamanho_bytes: number;
+  tamanho_cifrado: number;
+  entropia_original: number;
+  entropia_cifrado: number;
+  hash_sha256: string;
+  amostra_hex: string;
+  visualizado: boolean;
+  criado_em: string;
+}
+
+export interface ConteudoCofre {
+  id: number;
+  nome_arquivo: string;
+  legenda: string | null;
+  tipo_mime: string;
+  imagem_base64: string;
+}
+
+export type CaixaCofre = "todos" | "recebidos" | "enviados";
+
+export const listarCofre = (caixa: CaixaCofre = "todos") => requisitar<ItemCofre[]>(`/cofre?caixa=${caixa}`);
+
+export function enviarAoCofre(arquivo: File, destinatarioId: number | null, legenda: string) {
+  const formulario = new FormData();
+  formulario.append("arquivo", arquivo);
+  if (destinatarioId !== null) formulario.append("destinatario_id", String(destinatarioId));
+  if (legenda.trim()) formulario.append("legenda", legenda.trim());
+  return requisitar<ItemCofre>("/cofre", { method: "POST", body: formulario });
+}
+
+// Confirma a senha; o token devolvido fica só na memória da página (nunca no localStorage).
+export const desbloquearCofre = (senha: string) =>
+  requisitar<{ token_cofre: string; expira_em_segundos: number }>("/cofre/desbloquear", {
+    method: "POST",
+    body: json({ senha }),
+  });
+
+export const revelarDoCofre = (id: number, tokenCofre: string) =>
+  requisitar<ConteudoCofre>(`/cofre/${id}/conteudo`, {
+    headers: { "X-Token-Cofre": tokenCofre },
+    cache: "no-store",
+  });
+
+export const excluirDoCofre = (id: number) => requisitar<void>(`/cofre/${id}`, { method: "DELETE" });
+
+// Bytes do arquivo como está guardado no disco (só o começo, para desenhar a prévia).
+export async function bytesCifrados(id: number, limite: number): Promise<Uint8Array> {
+  const cabecalhos = new Headers();
+  const token = obterToken();
+  if (token) cabecalhos.set("Authorization", `Bearer ${token}`);
+  const resposta = await fetch(`${BASE_URL}/cofre/${id}/cifrado?limite_bytes=${limite}`, {
+    headers: cabecalhos,
+    cache: "no-store",
+  });
+  if (!resposta.ok) throw new ErroApi(resposta.status, "Não foi possível ler o arquivo cifrado.");
+  return new Uint8Array(await resposta.arrayBuffer());
+}

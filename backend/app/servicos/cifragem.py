@@ -57,3 +57,7 @@ def contexto_anexo(chamado_id: int) -> str:
 def contexto_conversa(instituto_a: int, instituto_b: int) -> str:
     menor, maior = sorted((instituto_a, instituto_b))
     return f"conversa/{menor}-{maior}"
+
+
+def contexto_cofre(item_id: int) -> str:
+    return f"cofre/{item_id}"
