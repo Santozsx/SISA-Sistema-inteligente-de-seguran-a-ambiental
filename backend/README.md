@@ -67,7 +67,10 @@ num sistema real o recomendado é AES-GCM.
 | Registro | `GET /chamados/categorias`, `POST /chamados`, `POST /chamados/{id}/anexos` |
 | Chamados | `GET /chamados?status=aberto`, `GET /chamados/{id}`, `PATCH /chamados/{id}/status`, `GET /chamados/{id}/anexos/{anexo_id}` |
 | Mensagens | `GET /mensagens/conversas`, `GET /mensagens/{instituto_id}`, `POST /mensagens/{instituto_id}` |
+| Cofre (fotos cifradas) | `POST /cofre` (multipart: `arquivo`, `destinatario_id`, `legenda`), `GET /cofre?caixa=todos|recebidos|enviados`, `GET /cofre/{id}/cifrado`, `POST /cofre/desbloquear` `{senha}`, `GET /cofre/{id}/conteudo` (cabeçalho `X-Token-Cofre`), `DELETE /cofre/{id}` |
 | Configurações | `GET /institutos/eu`, `PATCH /institutos/eu` (trocar senha exige `senha_atual`) |
+
+No **Cofre**, ver a foto exige confirmar a senha: `POST /cofre/desbloquear` devolve um token curto (5 min, `SISA_COFRE_DESBLOQUEIO_SEGUNDOS`) que só vale no cabeçalho `X-Token-Cofre` e não serve como login. Imagem, nome do arquivo e legenda ficam cifrados com uma chave própria por item.
 
 Rotas protegidas exigem o cabeçalho `Authorization: Bearer <access_token>` (devolvido no login).
 

@@ -87,3 +87,27 @@ class DispositivoMobile(Base):
     ultimo_acesso: Mapped[datetime] = mapped_column(default=agora_utc)
 
     instituto: Mapped[Instituto] = relationship(back_populates="dispositivos")
+
+
+class ItemCofre(Base):
+    """Foto enviada pelo Cofre. A imagem fica cifrada no disco; nome do arquivo e legenda, em metadados_cifrados."""
+
+    __tablename__ = "itens_cofre"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    remetente_id: Mapped[int] = mapped_column(ForeignKey("institutos.id"), index=True)
+    destinatario_id: Mapped[int] = mapped_column(ForeignKey("institutos.id"), index=True)
+    metadados_cifrados: Mapped[bytes] = mapped_column(LargeBinary)
+    tipo_mime: Mapped[str] = mapped_column(String(100))
+    tamanho_bytes: Mapped[int]
+    tamanho_cifrado: Mapped[int]
+    algoritmo: Mapped[str] = mapped_column(String(20))
+    entropia_original: Mapped[float]
+    entropia_cifrado: Mapped[float]
+    hash_sha256: Mapped[str] = mapped_column(String(64))  # da imagem original, conferido ao revelar
+    arquivo: Mapped[str] = mapped_column(String(64))
+    visualizado_em: Mapped[datetime | None]
+    criado_em: Mapped[datetime] = mapped_column(default=agora_utc, index=True)
+
+    remetente: Mapped[Instituto] = relationship(foreign_keys=[remetente_id])
+    destinatario: Mapped[Instituto] = relationship(foreign_keys=[destinatario_id])

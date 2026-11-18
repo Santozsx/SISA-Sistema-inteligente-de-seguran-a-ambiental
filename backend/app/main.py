@@ -8,7 +8,7 @@ from fastapi.responses import JSONResponse
 from . import config
 from .cripto import ErroIntegridade
 from .database import Base, engine
-from .rotas import auth, chamados, criptografia, institutos, mensagens, mobile, mural
+from .rotas import auth, chamados, cofre, criptografia, institutos, mensagens, mobile, mural
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("sisa")
@@ -36,7 +36,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-for modulo in (auth, institutos, chamados, mensagens, mural, criptografia, mobile):
+for modulo in (auth, institutos, chamados, mensagens, cofre, mural, criptografia, mobile):
     app.include_router(modulo.router, prefix=config.PREFIXO_API)
 
 

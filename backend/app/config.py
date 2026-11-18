@@ -64,3 +64,6 @@ def validar() -> None:
         assert valor in ALGORITMOS
     if JWT_SEGREDO == _JWT_PADRAO or CHAVE_MESTRA == _CHAVE_PADRAO.encode():
         logger.warning("Usando segredos de desenvolvimento. Defina SISA_JWT_SEGREDO e SISA_CHAVE_MESTRA no .env.")
+
+# Cofre de fotos: por quanto tempo a confirmação de senha libera a visualização.
+COFRE_DESBLOQUEIO_SEGUNDOS = int(os.getenv("SISA_COFRE_DESBLOQUEIO_SEGUNDOS", "300"))

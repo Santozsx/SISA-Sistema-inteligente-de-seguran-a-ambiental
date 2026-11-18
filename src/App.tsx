@@ -9,6 +9,7 @@ import Login from "./pages/Login/login";
 import Chamados from "./pages/Chamados/chamados.tsx";
 import Registro from "./pages/Registro/registro.tsx";
 import Config from "./pages/config/config.tsx";
+import Cofre from "./pages/Cofre/cofre.tsx";
 
 export default function App() {
   return (
@@ -31,6 +32,7 @@ export default function App() {
             <Route path="/institutos" element={<Institutos />} />
             <Route path="/chamados" element={<Chamados />} />
             <Route path="/mensagens" element={<Mensagens />} />
+            <Route path="/cofre" element={<Cofre />} />
             <Route path="/config" element={<Config />} />
           </Route>
         </Route>
