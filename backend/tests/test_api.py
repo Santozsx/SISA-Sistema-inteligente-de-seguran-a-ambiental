@@ -54,6 +54,18 @@ def test_anexo_cifrado_e_recuperado(cliente):
     assert recusado.status_code == 415
 
 
+def test_mural_mostra_so_as_imagens_do_chamado(cliente):
+    cab = cadastrar_e_logar(cliente, "mural-fotos@teste.org")
+    chamado = cliente.post(f"{API}/chamados", json={"categoria": "derrubada-arvores", "descricao": "Clareira nova"}, headers=cab).json()
+    url_anexos = f"{API}/chamados/{chamado['id']}/anexos"
+    foto = cliente.post(url_anexos, files={"arquivo": ("a.png", b"\x89PNG" + b"0" * 50, "image/png")}, headers=cab).json()
+    cliente.post(url_anexos, files={"arquivo": ("dados.csv", b"a,b\n1,2", "text/csv")}, headers=cab)
+
+    noticia = next(n for n in cliente.get(f"{API}/mural", headers=cab).json() if n["id"] == chamado["id"])
+    assert [i["id"] for i in noticia["imagens"]] == [foto["id"]]
+    assert cliente.get(noticia["imagens"][0]["url"], headers=cab).status_code == 200
+
+
 def test_mensagens_cifradas_entre_institutos(cliente):
     cab_a = cadastrar_e_logar(cliente, "a@teste.org", "Guarda Ambiental")
     cab_b = cadastrar_e_logar(cliente, "b@teste.org", "Fiscalização Amazônia")

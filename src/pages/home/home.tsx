@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MoreHorizontal, Image as ImageIcon, ArrowUpRight } from "lucide-react";
 import { listarInstitutos, listarMural, type Instituto, type Noticia } from "../../services/api";
+import ImagemAnexo from "../../components/ImagemAnexo/imagemAnexo";
 import { distancia, tempoRelativo } from "../../utils/formatar";
 import "./home.css";
 
@@ -68,7 +69,18 @@ export default function Home() {
           {noticias?.map((noticia) => (
             <article key={noticia.id} className="home-noticia-card">
               <div className="home-noticia-imagem">
-                <ImageIcon size={22} />
+                {noticia.imagens.length > 0 ? (
+                  <>
+                    <ImagemAnexo anexo={noticia.imagens[0]} className="home-noticia-foto" />
+                    {noticia.imagens.length > 1 && (
+                      <span className="home-noticia-mais-fotos" title={`${noticia.imagens.length} fotos`}>
+                        <ImageIcon size={12} /> +{noticia.imagens.length - 1}
+                      </span>
+                    )}
+                  </>
+                ) : (
+                  <ImageIcon size={22} />
+                )}
               </div>
               <div className="home-noticia-corpo">
                 <span className={`home-tag home-tag--${noticia.tag}`}>{TAG_LABEL[noticia.tag]}</span>

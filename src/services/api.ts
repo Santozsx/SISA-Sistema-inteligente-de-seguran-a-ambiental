@@ -86,6 +86,7 @@ export interface Noticia {
   titulo: string;
   resumo: string;
   fonte: string;
+  imagens: Anexo[];
   criado_em: string;
 }
 
@@ -234,6 +235,19 @@ export function enviarAnexo(chamadoId: number, arquivo: File) {
 }
 
 export const listarMural = () => requisitar<Noticia[]>("/mural");
+
+// A url do anexo exige o token no cabeçalho, então <img src> não serve direto:
+// baixamos a imagem (já decifrada pelo servidor) e criamos uma URL temporária (blob:).
+// Quem chamar deve liberar a URL com URL.revokeObjectURL quando não precisar mais dela.
+export async function urlImagemAnexo(anexo: Anexo): Promise<string> {
+  const cabecalhos = new Headers();
+  const token = obterToken();
+  if (token) cabecalhos.set("Authorization", `Bearer ${token}`);
+  const caminho = anexo.url.startsWith("/api/v1") ? anexo.url.slice("/api/v1".length) : anexo.url;
+  const resposta = await fetch(`${BASE_URL}${caminho}`, { headers: cabecalhos });
+  if (!resposta.ok) throw new ErroApi(resposta.status, "Não foi possível carregar a imagem.");
+  return URL.createObjectURL(await resposta.blob());
+}
 
 export const listarConversas = () => requisitar<Conversa[]>("/mensagens/conversas");
 
