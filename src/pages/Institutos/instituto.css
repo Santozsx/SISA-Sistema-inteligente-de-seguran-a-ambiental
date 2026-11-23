@@ -21,35 +21,6 @@
   color: #8a93a6;
 }
 
-/* ---------- mapa ---------- */
-.institutos-mapa {
-  position: relative;
-  height: 118px;
-  background: #10151c;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 10px;
-  margin-bottom: 16px;
-  overflow: hidden;
-}
-
-.institutos-mapa-ponto {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-.institutos-mapa-icone {
-  position: absolute;
-  top: 50%;
-  right: 34%;
-  transform: translate(50%, -50%);
-  color: #4a5568;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 /* ---------- lista de institutos ---------- */
 .institutos-lista {
   display: flex;
@@ -65,6 +36,13 @@
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 10px;
   padding: 14px 16px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.institutos-card:hover,
+.institutos-card--selecionado {
+  border-color: rgba(76, 142, 255, 0.5);
 }
 
 .institutos-avatar {
@@ -138,4 +116,10 @@
   color: #4c8eff;
   text-decoration: none;
   font-weight: 500;
+}
+.institutos-status--inativo {
+  color: #8a93a6;
+}
+.institutos-status--inativo .institutos-status-quadrado {
+  background: #8a93a6;
 }

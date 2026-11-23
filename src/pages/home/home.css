@@ -115,6 +115,7 @@
 }
 
 .home-noticia-imagem {
+  position: relative;
   height: 92px;
   background: linear-gradient(180deg, #16261d 0%, #0e1712 100%);
   color: #4a6656;
@@ -160,4 +161,34 @@
 }
 .home-tag--em-analise {
   background: #b7791f;
+}
+
+/* foto anexada ao chamado, no lugar do ícone */
+.home-noticia-foto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.home-noticia-foto.imagem-anexo--carregando {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+}
+
+.home-noticia-mais-fotos {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 7px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #ffffff;
+  background: rgba(8, 11, 20, 0.75);
 }

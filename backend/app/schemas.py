@@ -155,11 +155,12 @@ class ConversaSaida(BaseModel):
 # -------------------------------------------------------------------- mural
 
 class NoticiaSaida(BaseModel):
-    id: int
+    id: int  # mesmo id do chamado
     tag: str
     titulo: str
     resumo: str
     fonte: str
+    imagens: list[AnexoSaida] = []  # fotos anexadas ao chamado (a url exige o token)
     criado_em: datetime
 
 

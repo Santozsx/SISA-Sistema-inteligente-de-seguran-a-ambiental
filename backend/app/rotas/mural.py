@@ -32,6 +32,7 @@ def mural(
             titulo=titulo,
             resumo=resumo,
             fonte=c.instituto.nome,
+            imagens=[a for a in dados.anexos if a.tipo_mime.startswith("image/")],
             criado_em=c.atualizado_em,
         ))
     return noticias
